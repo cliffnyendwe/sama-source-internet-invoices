@@ -26,6 +26,9 @@ class TeamLeader (models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("team-leader-profile")
+
 
 class Agent (models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -51,7 +54,7 @@ class Invoice(models.Model):
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
     isp_name = models.CharField(max_length=100, default='isp name')
     monthly_subscription = models.IntegerField(default='monthly subscription')
-    invoice_file = models.FileField(upload_to=None, null=True, blank=True)
+    invoice_file = models.FileField(upload_to="invoices/", null=True, blank=True)
     due_date = models.DateField(default=timezone.now)
     approved = models.BooleanField(default=False)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="Payment Pending")
