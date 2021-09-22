@@ -8,7 +8,7 @@
         <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="/">Home</a></li>
-          <li><i class="fa fa-laptop"></i>My Invoices</li>
+          <li><i class="fa fa-laptop"></i>My Projects</li>
         </ol>
       </div>
     </div>
@@ -17,28 +17,20 @@
       <div class="table-responsive">
           <section class="panel">
             <header class="panel-heading">
-              Agent Invoices List
+             My Projects List
             </header>
             <table class="table ml-3">
               <thead>
                 <tr>
-                  <th>ISP Name</th>
-                  <th>Subscription</th>
-                  <th>Due Date</th>
-                  <th>Approved</th> 
-                  <th>Status</th>
-                                       
+                  <th>Project Title</th>
+                  <th>Date Added</th>                  
                 </tr>
               </thead>
               <tbody>
-        {% for invoice in agent_invoices %}
+        {% for project in tl_projects %}
                 <tr>
-                  <td>{{invoice.isp_name}}</td>
-                  <td>{{invoice.monthly_subscription}}</td>
-                  <td>{{invoice.due_date}}</td>
-                  <td>{{invoice.invoice_approved}}</td>
-                  <td>{{invoice.status}}</td>
-               
+                  <td>{{project.title}}</td>
+                  <td>{{project.date_added}}</td>               
                 </tr>
       {% endfor %}
               </tbody>
@@ -50,8 +42,5 @@
 
   </section>
 </section>
-<script type="text/javascript">
-  var project = "{{ request.user.agent.project}}";
-  console.log(project)
-</script>
+
 {% endblock content %}

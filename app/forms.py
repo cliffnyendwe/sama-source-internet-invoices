@@ -14,6 +14,19 @@ class AddAgentForm(forms.ModelForm):
                       
         }
 
+class UpdateAgentForm(forms.ModelForm):
+    class Meta:
+        model = Agent
+        fields = ('user', 'name', 'ssdc_number', 'project')
+
+        widgets = {
+            'user': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'project': forms.Select(attrs={'class': 'form-control'}),
+                      
+        }
+
 class AddTeamLeaderForm(forms.ModelForm):
     class Meta:
         model = TeamLeader
@@ -21,6 +34,19 @@ class AddTeamLeaderForm(forms.ModelForm):
 
         widgets = {
         	'user': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'project': forms.Select(attrs={'class': 'form-control'}),
+                      
+        }
+
+class UpdateTLForm(forms.ModelForm):
+    class Meta:
+        model = TeamLeader
+        fields = ('user', 'name', 'ssdc_number', 'project')
+
+        widgets = {
+            'user': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
             'project': forms.Select(attrs={'class': 'form-control'}),
@@ -37,5 +63,6 @@ class AddInvoiceForm(forms.ModelForm):
             'isp_name': forms.TextInput(attrs={'class': 'form-control'}),
             'monthly_subscription': forms.NumberInput(attrs={'class': 'form-control'}),
             'invoice': forms.FileInput(attrs={'class': 'form-control'}),
+            #'project': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'project', 'type': 'hidden'}),
                       
         }

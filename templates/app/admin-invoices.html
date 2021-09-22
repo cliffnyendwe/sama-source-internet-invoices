@@ -8,6 +8,8 @@
         <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="/">Home</a></li>
+          
+          <li><i class="fa fa-pencil"></i><a href="{% url 'export-invoice-xls' %}">Export To Excel</a></li>
           <li><i class="fa fa-laptop"></i>All Approved Invoices</li>
         </ol>
       </div>
@@ -17,7 +19,7 @@
       <div class="table-responsive">
           <section class="panel">
             <header class="panel-heading">
-              Approved Invoices List
+              Approved Invoices List 
             </header>
             <table class="table ml-3">
               <thead>

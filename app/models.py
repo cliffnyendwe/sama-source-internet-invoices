@@ -34,7 +34,7 @@ class Agent (models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, default='agent name')
     ssdc_number = models.CharField(max_length=100, default='agent ssdc number')
-    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, related_name="projects")
     date_joined = models.DateField(default=timezone.now)
    
 
@@ -59,6 +59,7 @@ class Invoice(models.Model):
     approved = models.BooleanField(default=False)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="Payment Pending")
     date_submitted = models.DateField(default=timezone.now)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return str(self.agent) + " Invoice"
@@ -71,5 +72,25 @@ class Invoice(models.Model):
             return "Yes"
         else: return "No"
 
+class Job(models.Model):
+    title = models.CharField(max_length=200)
+    team_leader = models.ForeignKey(TeamLeader, on_delete=models.CASCADE)
+    date_created = models.DateField(default=timezone.now)
 
+    def __str__(self):
+        return self.title
+
+class Employee(models.Model):
+    name = models.CharField(max_length=200)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+class Salary(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    amount = models.IntegerField()
+
+    def __str__(self):
+        return str(self.employee)
 
