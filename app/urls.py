@@ -19,4 +19,12 @@ urlpatterns = [
 	path("approve-invoice/<int:pk>/", ApproveInvoice.as_view(), name="approve-invoice"),
 	path("invoice-payment-status/<int:pk>/", ChangeInvoiceStatus.as_view(), name="invoice-payment-status"),
 	path("admin-invoices/", views.ApprovedInvoices, name="admin-invoices"),
+	path("tl-invoices/", views.tl_invoices, name="tl-invoices"),
+	path('export/csv/', views.export_users_csv, name='export_users_csv'),
+	path('export/xls/', views.export_invoices_xls, name='export-invoice-xls'),
+	path("jobs/", JobList.as_view(), name="jobs"),
+	path("tl-projects/", views.tl_projects, name="tl-projects"),
+	path("update-tl/<int:pk>/", UpdateTL.as_view(), name="update-tl"),
+	path("update-agent/<int:pk>/", UpdateAgent.as_view(), name="update-agent"),
+	path("update-project/<int:pk>/", UpdateProject.as_view(), name="update-project"),
 ]

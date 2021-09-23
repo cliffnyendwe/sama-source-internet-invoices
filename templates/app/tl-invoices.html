@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <section id="main-content">
   <section class="wrapper">
     <div class="row">
@@ -8,7 +9,7 @@
         <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="/">Home</a></li>
-          <li><i class="fa fa-laptop"></i>My Invoices</li>
+          <li><i class="fa fa-laptop"></i>All Agent Invoices</li>
         </ol>
       </div>
     </div>
@@ -22,24 +23,30 @@
             <table class="table ml-3">
               <thead>
                 <tr>
+                  <th>Agent</th>
                   <th>ISP Name</th>
                   <th>Subscription</th>
                   <th>Due Date</th>
-                  <th>Approved</th> 
+                  <th>Approved</th>  
                   <th>Status</th>
-                                       
+                  <th colspan="3">Actions</th>                      
                 </tr>
               </thead>
               <tbody>
-        {% for invoice in agent_invoices %}
+        {% for invoice in tl_invoices %}
+            {% if invoice.agent.project == request.user.teamleader.project %}
                 <tr>
+                  <td>{{invoice.agent}}</td>
                   <td>{{invoice.isp_name}}</td>
                   <td>{{invoice.monthly_subscription}}</td>
                   <td>{{invoice.due_date}}</td>
                   <td>{{invoice.invoice_approved}}</td>
                   <td>{{invoice.status}}</td>
-               
+                  <td>
+                    <a href="{% url 'approve-invoice' invoice.pk %}" class="btn btn-primary">Approve/Decline</a>
+                  </td>               
                 </tr>
+            {% endif %}
       {% endfor %}
               </tbody>
             </table>
@@ -50,8 +57,11 @@
 
   </section>
 </section>
+
 <script type="text/javascript">
-  var project = "{{ request.user.agent.project}}";
+  var project = "{{ user.teamleader.project }}";
   console.log(project)
 </script>
+
+{% endif %}
 {% endblock content %}
