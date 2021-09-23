@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.urls import reverse
 
 
+
 class Project(models.Model):
     title = models.CharField(max_length=500, unique=True)
     date_added = models.DateField(default=timezone.now)
@@ -36,7 +37,7 @@ class Agent (models.Model):
     ssdc_number = models.CharField(max_length=100, default='agent ssdc number')
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, related_name="projects")
     date_joined = models.DateField(default=timezone.now)
-   
+
 
     def __str__(self):
         return self.name
@@ -71,6 +72,7 @@ class Invoice(models.Model):
         if self.approved:
             return "Yes"
         else: return "No"
+        master
 
 class Job(models.Model):
     title = models.CharField(max_length=200)
@@ -94,3 +96,5 @@ class Salary(models.Model):
     def __str__(self):
         return str(self.employee)
 
+
+        main
