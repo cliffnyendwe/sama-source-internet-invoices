@@ -65,5 +65,11 @@ class AddInvoiceForm(forms.ModelForm):
             'agent': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'agent', 'type': 'hidden'}),
             'isp_name': forms.TextInput(attrs={'class': 'form-control'}),
             'monthly_subscription': forms.NumberInput(attrs={'class': 'form-control'}),
-            'invoice_file': forms.FileInput(attrs={'class': 'form-control'}),
+#         changes
+            'invoice': forms.FileInput(attrs={'class': 'form-control'}),
+            #'project': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'project', 'type': 'hidden'}),
+            'due_date': forms.DateInput(attrs={'class': 'form-control'}),        
+
+#             'invoice_file': forms.FileInput(attrs={'class': 'form-control'}),
+#       master
         }
