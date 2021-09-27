@@ -14,7 +14,6 @@ class AddAgentForm(forms.ModelForm):
             'team_leader': forms.Select(attrs={'class': 'form-control'}),
             'payment_method': forms.Select(attrs={'class': 'form-control'}), 
             'installation': forms.NumberInput(attrs={'class': 'form-control'}), 
-                      
         }
 
 class UpdateAgentForm(forms.ModelForm):
@@ -42,7 +41,7 @@ class AddTeamLeaderForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
             'project': forms.Select(attrs={'class': 'form-control'}),
-                      
+
         }
 
 class UpdateTLForm(forms.ModelForm):
@@ -54,8 +53,7 @@ class UpdateTLForm(forms.ModelForm):
             'user': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'project': forms.Select(attrs={'class': 'form-control'}),
-                      
+            'project': forms.Select(attrs={'class': 'form-control'}),      
         }
 
 class AddInvoiceForm(forms.ModelForm):
@@ -67,7 +65,5 @@ class AddInvoiceForm(forms.ModelForm):
             'agent': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'agent', 'type': 'hidden'}),
             'isp_name': forms.TextInput(attrs={'class': 'form-control'}),
             'monthly_subscription': forms.NumberInput(attrs={'class': 'form-control'}),
-            'invoice': forms.FileInput(attrs={'class': 'form-control'}),
-            #'project': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'project', 'type': 'hidden'}),
-                      
+            'invoice_file': forms.FileInput(attrs={'class': 'form-control'}),
         }
