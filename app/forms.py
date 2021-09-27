@@ -4,27 +4,32 @@ from . models import Agent, TeamLeader, Invoice
 class AddAgentForm(forms.ModelForm):
     class Meta:
         model = Agent
-        fields = ('user', 'name', 'ssdc_number', 'project')
+        fields = ('user', 'name', 'ssdc_number', 'project', 'team_leader', 'payment_method', 'installation')
 
         widgets = {
         	'user': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
             'project': forms.Select(attrs={'class': 'form-control'}),
+            'team_leader': forms.Select(attrs={'class': 'form-control'}),
+            'payment_method': forms.Select(attrs={'class': 'form-control'}), 
+            'installation': forms.NumberInput(attrs={'class': 'form-control'}), 
                       
         }
 
 class UpdateAgentForm(forms.ModelForm):
     class Meta:
         model = Agent
-        fields = ('user', 'name', 'ssdc_number', 'project')
+        fields = ('user', 'name', 'ssdc_number', 'project', 'team_leader', 'payment_method', 'installation')
 
         widgets = {
             'user': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
             'project': forms.Select(attrs={'class': 'form-control'}),
-                      
+            'team_leader': forms.Select(attrs={'class': 'form-control'}),
+            'payment_method': forms.Select(attrs={'class': 'form-control'}), 
+            'installation': forms.NumberInput(attrs={'class': 'form-control'}),        
         }
 
 class AddTeamLeaderForm(forms.ModelForm):

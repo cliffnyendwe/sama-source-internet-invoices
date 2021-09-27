@@ -29,12 +29,22 @@ class TeamLeader (models.Model):
     def get_absolute_url(self):
         return reverse("team-leader-profile")
 
+PAY_METHODS = (
+    ('m-pesa', 'm-pesa'),
+    ('bank', 'bank'),
+    ('airtel money', 'airtel money'),
+    ('t-kash', 't-kash'),
+    ('paypal', 'paypal'),
+)
 
 class Agent (models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, default='agent name')
     ssdc_number = models.CharField(max_length=100, default='agent ssdc number')
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, related_name="projects")
+    team_leader = models.ForeignKey(TeamLeader, on_delete=models.SET_NULL, null=True)
+    installation = models.IntegerField(default=0)
+    payment_method = models.CharField(max_length=200, choices=PAY_METHODS, default="m-pesa")
     date_joined = models.DateField(default=timezone.now)
    
 
