@@ -1,4 +1,4 @@
-#!/home/cliff/Documents/argon-dashboard-django-master/virtual/bin/python
+#!/home/cliff/Documents/sama-projects/sama-source-internet-invoices/virtual/bin/python
 from django.core import management
 
 if __name__ == "__main__":
