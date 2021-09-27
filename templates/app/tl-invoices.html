@@ -23,12 +23,10 @@
             <table class="table ml-3">
               <thead>
                 <tr>
-                  <th>Agent</th>
-                  <th>ISP Name</th>
-                  <th>Subscription</th>
+                  <th>Agent SSDC Number</th>
                   <th>Due Date</th>
-                  <th>Approved</th>  
-                  <th>Status</th>
+                  <th>Approved</th>
+                  <th>Ivoice File</th>   
                   <th colspan="3">Actions</th>                      
                 </tr>
               </thead>
@@ -36,12 +34,10 @@
         {% for invoice in tl_invoices %}
             {% if invoice.agent.project == request.user.teamleader.project %}
                 <tr>
-                  <td>{{invoice.agent}}</td>
-                  <td>{{invoice.isp_name}}</td>
-                  <td>{{invoice.monthly_subscription}}</td>
+                  <td>{{invoice.agent.ssdc_number}}</td>
                   <td>{{invoice.due_date}}</td>
                   <td>{{invoice.invoice_approved}}</td>
-                  <td>{{invoice.status}}</td>
+                  <td>{{invoice.invoice_file}}</td>
                   <td>
                     <a href="{% url 'approve-invoice' invoice.pk %}" class="btn btn-primary">Approve/Decline</a>
                   </td>               

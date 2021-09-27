@@ -69,5 +69,5 @@ class AddInvoiceForm(forms.ModelForm):
             'monthly_subscription': forms.NumberInput(attrs={'class': 'form-control'}),
             'invoice': forms.FileInput(attrs={'class': 'form-control'}),
             #'project': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'project', 'type': 'hidden'}),
-                      
+            'due_date': forms.DateInput(attrs={'class': 'form-control'}),        
         }
