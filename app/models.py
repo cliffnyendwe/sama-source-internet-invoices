@@ -69,6 +69,7 @@ class Invoice(models.Model):
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="Payment Pending")
     date_submitted = models.DateField(default=timezone.now)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, blank=True, null=True)
+    reason_declined = models.TextField(blank=True, null=True, default="The invoice was accepted!")
 
     def __str__(self):
         return str(self.agent) + " Invoice"
