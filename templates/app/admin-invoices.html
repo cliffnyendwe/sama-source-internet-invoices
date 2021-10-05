@@ -28,7 +28,8 @@
                   <th>Payment Method</th>
                   <th>Due Date</th>
                   <th>Approved</th>
-                  <th>Invoice File</th>
+                  
+                  <th>Invoice PDF</th>
                   <th colspan="3">Actions</th>                      
                 </tr>
               </thead>
@@ -40,7 +41,7 @@
                    <td>{{invoice.due_date}}</td>
                   <td>{{invoice.approved}}</td>
                   <td>
-                    <a href="{{invoice.invoice_file}}">File</a>
+                    <a href="{{ object.invoice_file.url }}" download>{{ object.invoice_file }} File</a>
                   </td>
                 <td>
                     <a href="{% url 'invoice-payment-status' invoice.pk %}" class="btn btn-primary">Update Payment</a>
