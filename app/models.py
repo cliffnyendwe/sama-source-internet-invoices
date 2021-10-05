@@ -30,11 +30,8 @@ class TeamLeader (models.Model):
         return reverse("team-leader-profile")
 
 PAY_METHODS = (
-    ('m-pesa', 'm-pesa'),
-    ('bank', 'bank'),
-    ('airtel money', 'airtel money'),
-    ('t-kash', 't-kash'),
-    ('paypal', 'paypal'),
+    ('Pay Bill', 'Pay Bill'),
+    ('Till Number', 'Till Number'),
 )
 
 class Agent (models.Model):
@@ -45,6 +42,8 @@ class Agent (models.Model):
     team_leader = models.ForeignKey(TeamLeader, on_delete=models.SET_NULL, null=True)
     installation = models.IntegerField(default=0)
     payment_method = models.CharField(max_length=200, choices=PAY_METHODS, default="m-pesa")
+    till_or_paybill_number = models.CharField(max_length=20, default="000000000")
+    acc_number = models.CharField(max_length=200, default="123456789")
     date_joined = models.DateField(default=timezone.now)
    
 

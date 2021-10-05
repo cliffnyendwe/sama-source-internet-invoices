@@ -8,6 +8,8 @@ import csv
 import xlwt
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+
+from .filters import ProjectsFilter
 # Create your views here.
 def export_invoices_xls(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -92,12 +94,15 @@ class NewAgent(CreateView):
 	form_class = AddAgentForm
 	template_name = "app/new-agent.html"
 
-@login_required(login_url="/login/")
-def Projects(request):
-	projects = Project.objects.all() 
-	template_name = "app/projects.html"
-	return render(request, template_name, {"projects": projects})
 
+class ProjectsList(ListView):
+	model = Project
+	template_name = "app/projects.html"
+"""
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['filter'] = ProjectsFilter(self.request.GET, queryset=self.get_queryset())
+"""
 class NewProject(CreateView):
 	model = Project
 	fields = "__all__"
@@ -117,6 +122,10 @@ class NewInvoice(CreateView):
 	def form_valid(self, form):
 		form.instance.project = self.request.user.agent.project
 		return super().form_valid(form)
+
+class InvoiceDetails(DetailView):
+	model = Invoice
+	template_name = "app/invoice.html"
 
 def agent_profile(request):
 	agent = Agent.objects.filter(user=request.user)

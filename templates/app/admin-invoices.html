@@ -39,7 +39,9 @@
                    <td>{{invoice.agent.payment_method}}</td>
                    <td>{{invoice.due_date}}</td>
                   <td>{{invoice.approved}}</td>
-                  <td>{{invoice.invoice_file.url}}</td>
+                  <td>
+                    <a href="{{invoice.invoice_file}}">File</a>
+                  </td>
                 <td>
                     <a href="{% url 'invoice-payment-status' invoice.pk %}" class="btn btn-primary">Update Payment</a>
                   </td>               

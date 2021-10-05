@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load bootstrap %}
 {% block content %}
 <section id="main-content">
   <section class="wrapper">
@@ -13,7 +13,6 @@
         </ol>
       </div>
     </div>
-
     <div class="row">
       <div class="table-responsive">
           <section class="panel">
@@ -28,7 +27,7 @@
                 </tr>
               </thead>
               <tbody>
-        {% for project in projects %}
+        {% for project in object_list %}
                 <tr>
                   <td>{{project.title}}</td>
                   <td>{{project.date_added}}</td>
