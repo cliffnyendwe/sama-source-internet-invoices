@@ -63,7 +63,7 @@ class Invoice(models.Model):
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
     isp_name = models.CharField(max_length=100, default='isp name')
     monthly_subscription = models.IntegerField(default='monthly subscription')
-    invoice_file = models.FileField(upload_to="invoices/", null=True, blank=True)
+    invoice_file = models.FileField(upload_to="invoices", null=True, blank=True)
     due_date = models.DateField(default=timezone.now)
     approved = models.BooleanField(default=False)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="Payment Pending")
@@ -103,3 +103,6 @@ class Salary(models.Model):
     def __str__(self):
         return str(self.employee)
 
+class upload(models.Model):
+    title=models.CharField(max_length=50)
+    upload=models.FileField(upload_to="media")

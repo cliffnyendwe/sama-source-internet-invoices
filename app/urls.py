@@ -27,4 +27,6 @@ urlpatterns = [
 	path("update-tl/<int:pk>/", UpdateTL.as_view(), name="update-tl"),
 	path("update-agent/<int:pk>/", UpdateAgent.as_view(), name="update-agent"),
 	path("update-project/<int:pk>/", UpdateProject.as_view(), name="update-project"),
+	path("index2/",views.index2,name="index2"),
+    path("index1/",views.index1,name="index1"),
 ]

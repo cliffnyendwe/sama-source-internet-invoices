@@ -214,6 +214,22 @@ class UpdateAgent(UpdateView):
 	template_name = "app/update-agent-profile.html"
 
 
+
+
+def index1(request):
+    return render(request,'index1.html')
+def index2(request):
+    if request.method=='POST':
+        title=request.POST['title']       
+        upload1=request.FILES['upload']
+        object=upload.objects.create(title=title,upload=upload1)
+        object.save()  
+    context=upload.objects.all()
+    return render(request,'index2.html',{'context':context})
+
+
+
+
 from django.http import HttpResponse
 from django.views.generic import View
 

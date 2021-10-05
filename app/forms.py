@@ -61,7 +61,7 @@ class UpdateTLForm(forms.ModelForm):
 class AddInvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
-        fields = ('agent', 'isp_name', 'monthly_subscription', 'invoice_file')
+        fields = ('agent', 'isp_name', 'monthly_subscription', 'invoice_file', 'due_date', 'date_submitted')
 
         widgets = {
             'agent': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'agent', 'type': 'hidden'}),
@@ -69,5 +69,7 @@ class AddInvoiceForm(forms.ModelForm):
             'monthly_subscription': forms.NumberInput(attrs={'class': 'form-control'}),
             'invoice': forms.FileInput(attrs={'class': 'form-control'}),
             #'project': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'project', 'type': 'hidden'}),
-            'due_date': forms.DateInput(attrs={'class': 'form-control'}),        
+            'due_date': forms.DateInput(attrs={'class': 'datepicker', 'id': 'due_date', 'type': 'date'}),   
+            'date_submitted': forms.DateInput(attrs={'class': 'datepicker', 'id': 'date_submitted', 'type': 'date'}),     
         }
+

@@ -41,7 +41,7 @@
                    <td>{{invoice.due_date}}</td>
                   <td>{{invoice.approved}}</td>
                   <td>
-                    <a href="{{ object.invoice_file.url }}" download>{{ object.invoice_file }} File</a>
+                    <a href="{{ invoice.invoice_file.url }}" download>Download File</a>
                   </td>
                 <td>
                     <a href="{% url 'invoice-payment-status' invoice.pk %}" class="btn btn-primary">Update Payment</a>
