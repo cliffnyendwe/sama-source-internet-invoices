@@ -8,6 +8,8 @@ import csv
 import xlwt
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+
+from .filters import ProjectsFilter, AgentFilter, InvoiceFilter
 # Create your views here.
 def export_invoices_xls(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -83,20 +85,31 @@ class NewTeamLeader(CreateView):
 
 @login_required(login_url="/login/")
 def Agents(request):
-	agents = Agent.objects.all()
+	context = {}
+	filtered_agents = AgentFilter(
+		request.GET,
+		queryset=Agent.objects.all()
+	)
+	context['filtered_agents'] = filtered_agents
+
 	template_name = "app/agents.html"
-	return render(request, template_name, {"agents": agents})
+	return render(request, template_name, context=context)
 
 class NewAgent(CreateView):
 	model = Agent
 	form_class = AddAgentForm
 	template_name = "app/new-agent.html"
 
-@login_required(login_url="/login/")
-def Projects(request):
-	projects = Project.objects.all() 
-	template_name = "app/projects.html"
-	return render(request, template_name, {"projects": projects})
+
+def all_projects(request):
+	context = {}
+	filtered_projects = ProjectsFilter(
+		request.GET,
+		queryset=Project.objects.all()
+	)
+	context['filtered_projects'] = filtered_projects
+	return render(request, "app/projects.html", context=context)
+
 
 class NewProject(CreateView):
 	model = Project
@@ -117,6 +130,10 @@ class NewInvoice(CreateView):
 	def form_valid(self, form):
 		form.instance.project = self.request.user.agent.project
 		return super().form_valid(form)
+
+class InvoiceDetails(DetailView):
+	model = Invoice
+	template_name = "app/invoice.html"
 
 def agent_profile(request):
 	agent = Agent.objects.filter(user=request.user)
@@ -146,21 +163,27 @@ def team_leader_profile(request):
 	return render(request, "team-leader-profile.html")
 
 def my_agents(request):
-	agents = Agent.objects.all()
-	context = {
-		"hello": "Hello World",
-		"agents": agents
-	}
-	return render(request, "app/my-agents.html", context)
+	context = {}
+	filtered_agents = AgentFilter(
+		request.GET,
+		queryset=Agent.objects.all()
+	)
+	context['filtered_agents'] = filtered_agents
+
+	return render(request, "app/my-agents.html", context=context)
+
+class AgentDetails(DetailView):
+	model = Agent
+	template_name = "app/agent-details.html"
 
 def tl_invoices(request):
-	project = TeamLeader.objects.filter(project=request.user.teamleader.project)
-	tl_invoices = Invoice.objects.all()
-	context = {
-		"tl_invoices": tl_invoices,
-		"project": project
-	}
-	return render(request, "app/tl-invoices.html", context)
+	context = {}
+	filtered_invoices = InvoiceFilter(
+		request.GET,
+		queryset=Invoice.objects.all()
+	)
+	context['filtered_invoices'] = filtered_invoices
+	return render(request, "app/tl-invoices.html", context=context)
 
 class ChangeInvoiceStatus(UpdateView):
 	model = Invoice
@@ -175,16 +198,13 @@ class UpdateProject(UpdateView):
 
 
 def ApprovedInvoices(request):
-	invoices = Invoice.objects.filter(approved=True)
-	context = {
-		"invoices": invoices
-	}
-	return render(request, "app/admin-invoices.html", context)
-
-
-class JobList(ListView):
-	model = Job
-	template_name = "app/jobs.html"
+	context = {}
+	filtered_invoices = InvoiceFilter(
+		request.GET,
+		queryset=Invoice.objects.filter(approved=True)
+	)
+	context['filtered_invoices'] = filtered_invoices
+	return render(request, "app/admin-invoices.html", context=context)
 
 
 def tl_projects(request):
@@ -204,41 +224,3 @@ class UpdateAgent(UpdateView):
 	form_class = UpdateAgentForm
 	template_name = "app/update-agent-profile.html"
 
-
-from django.http import HttpResponse
-from django.views.generic import View
-
-from app.utils import render_to_pdf #created in step 4
-"""
-class GeneratePdf(View):
-    def get(self, request, *args, **kwargs):
-        data = {
-             'today': datetime.date.today(), 
-             'amount': 39.99,
-            'customer_name': 'Cooper Mann',
-            'order_id': 1233434,
-        }
-        pdf = render_to_pdf('app/invoice.html', data)
-        return HttpResponse(pdf, content_type='application/pdf')
-"""
-class GeneratePDF(View):
-    def get(self, request, *args, **kwargs):
-        template = get_template('app/invoice.html')
-        context = {
-            "invoice_id": 123,
-            "customer_name": "John Cooper",
-            "amount": 1399.99,
-            "today": "Today",
-        }
-        html = template.render(context)
-        pdf = render_to_pdf('app/invoice.html', context)
-        if pdf:
-            response = HttpResponse(pdf, content_type='application/pdf')
-            filename = "Invoice_%s.pdf" %("12341231")
-            content = "inline; filename='%s'" %(filename)
-            download = request.GET.get("download")
-            if download:
-                content = "attachment; filename='%s'" %(filename)
-            response['Content-Disposition'] = content
-            return response
-        return HttpResponse("Not found")

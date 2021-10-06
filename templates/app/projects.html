@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-
+{% load bootstrap %}
+{% load crispy_forms_tags %}
 {% block content %}
 <section id="main-content">
   <section class="wrapper">
@@ -12,6 +13,22 @@
           <li><i class="fa fa-plus"></i><a href="{% url 'new-project' %}">New Project</a></li>
         </ol>
       </div>
+    </div>
+    <div class="row">
+      <form method="GET">
+        <div class="row">
+          <div class="col-md-4">
+            {{filtered_projects.form.title | as_crispy_field}}
+          </div>
+          <div class="col-md-4">
+            {{filtered_projects.form.date_added | as_crispy_field}}
+          </div>
+          <div class="col-md-4">
+            <label></label><br>
+            <input type="submit" value="Filter" class="btn btn-info mt-5">
+          </div>
+        </div>
+      </form>
     </div>
 
     <div class="row">
@@ -28,7 +45,7 @@
                 </tr>
               </thead>
               <tbody>
-        {% for project in projects %}
+        {% for project in filtered_projects.qs %}
                 <tr>
                   <td>{{project.title}}</td>
                   <td>{{project.date_added}}</td>
