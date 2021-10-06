@@ -55,7 +55,7 @@
                   <td>{{agent.project}}</td>
                   <td>{{agent.user.email}}</td>
                   <td>
-                    <a href="#" class="btn btn-info">Details</a>
+                    <a href="{% url 'agent-details' agent.pk %}" class="btn btn-info">Details</a>
                   </td>
                   <td>
                     <a href="#" class="btn btn-primary">Update</a>
