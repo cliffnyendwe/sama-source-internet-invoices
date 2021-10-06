@@ -163,12 +163,14 @@ def team_leader_profile(request):
 	return render(request, "team-leader-profile.html")
 
 def my_agents(request):
-	agents = Agent.objects.all()
-	context = {
-		"hello": "Hello World",
-		"agents": agents
-	}
-	return render(request, "app/my-agents.html", context)
+	context = {}
+	filtered_agents = AgentFilter(
+		request.GET,
+		queryset=Agent.objects.all()
+	)
+	context['filtered_agents'] = filtered_agents
+
+	return render(request, "app/my-agents.html", context=context)
 
 class AgentDetails(DetailView):
 	model = Agent

@@ -59,7 +59,9 @@
                   <td>{{invoice.agent.ssdc_number}}</td>
                   <td>{{invoice.due_date}}</td>
                   <td>{{invoice.invoice_approved}}</td>
-                  <td>{{invoice.invoice_file}}</td>
+                  <td>
+                    <a href="{{ invoice.invoice_file.url }}" download>Download File</a>
+                  </td>
                   <td>
                     <a href="{% url 'approve-invoice' invoice.pk %}" class="btn btn-primary">Approve/Decline</a>
                   </td>               

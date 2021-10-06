@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
-
+from django.conf import settings
 
 class Project(models.Model):
     title = models.CharField(max_length=500, unique=True)
@@ -17,7 +17,7 @@ class Project(models.Model):
 
 
 class TeamLeader (models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=150, default='tl name')
     ssdc_number = models.CharField(max_length=100, default='tl ssdc number')
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
@@ -35,7 +35,7 @@ PAY_METHODS = (
 )
 
 class Agent (models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=150, default='agent name')
     ssdc_number = models.CharField(max_length=100, default='agent ssdc number')
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, related_name="projects")
