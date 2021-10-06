@@ -23,11 +23,8 @@ urlpatterns = [
 	path("tl-invoices/", views.tl_invoices, name="tl-invoices"),
 	path('export/csv/', views.export_users_csv, name='export_users_csv'),
 	path('export-payments-due-csv/', views.export_payments_due_csv, name='export-payments-due-csv'),
-	path("jobs/", JobList.as_view(), name="jobs"),
 	path("tl-projects/", views.tl_projects, name="tl-projects"),
 	path("update-tl/<int:pk>/", UpdateTL.as_view(), name="update-tl"),
 	path("update-agent/<int:pk>/", UpdateAgent.as_view(), name="update-agent"),
 	path("update-project/<int:pk>/", UpdateProject.as_view(), name="update-project"),
-	path("index2/",views.index2,name="index2"),
-    path("index1/",views.index1,name="index1"),
 ]

@@ -81,29 +81,3 @@ class Invoice(models.Model):
         if self.approved:
             return "Yes"
         else: return "No"
-
-class Job(models.Model):
-    title = models.CharField(max_length=200)
-    team_leader = models.ForeignKey(TeamLeader, on_delete=models.CASCADE)
-    date_created = models.DateField(default=timezone.now)
-
-    def __str__(self):
-        return self.title
-
-class Employee(models.Model):
-    name = models.CharField(max_length=200)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-class Salary(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    amount = models.IntegerField()
-
-    def __str__(self):
-        return str(self.employee)
-
-class upload(models.Model):
-    title=models.CharField(max_length=50)
-    upload=models.FileField(upload_to="media")

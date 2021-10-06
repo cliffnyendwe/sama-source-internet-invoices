@@ -27,8 +27,3 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 admin.site.register(Agent, AgentAdmin)
 admin.site.register(TeamLeader, TeamLeaderAdmin)
-
-admin.site.register(Job)
-admin.site.register(Employee)
-admin.site.register(Salary)
-admin.site.register(upload)
