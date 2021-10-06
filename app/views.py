@@ -53,6 +53,19 @@ def export_users_csv(request):
 
     return response
 
+def export_payments_due_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="payments-due.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Agent', 'ISP Name', 'Monthly Subscription', 'Date Due'])
+
+    invoices = Invoice.objects.filter(approved=True).values_list('agent', 'isp_name', 'monthly_subscription', 'due_date')
+    for invoice in invoices:
+        writer.writerow(invoice)
+
+    return response
+
 @login_required(login_url="/login/")
 def home(request):
 	return render(request, "index.html")
@@ -190,3 +203,42 @@ class UpdateAgent(UpdateView):
 	model = Agent
 	form_class = UpdateAgentForm
 	template_name = "app/update-agent-profile.html"
+
+
+from django.http import HttpResponse
+from django.views.generic import View
+
+from app.utils import render_to_pdf #created in step 4
+"""
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+        data = {
+             'today': datetime.date.today(), 
+             'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+        }
+        pdf = render_to_pdf('app/invoice.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+"""
+class GeneratePDF(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('app/invoice.html')
+        context = {
+            "invoice_id": 123,
+            "customer_name": "John Cooper",
+            "amount": 1399.99,
+            "today": "Today",
+        }
+        html = template.render(context)
+        pdf = render_to_pdf('app/invoice.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = "Invoice_%s.pdf" %("12341231")
+            content = "inline; filename='%s'" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(filename)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")
