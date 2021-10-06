@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <section id="main-content">
   <section class="wrapper">
@@ -12,6 +12,23 @@
           <li><i class="fa fa-plus"></i><a href="{% url 'new-agent' %}">New Agent</a></li>
         </ol>
       </div>
+    </div>
+
+      <div class="row">
+      <form method="GET">
+        <div class="row">
+          <div class="col-md-4">
+            {{filtered_agents.form.ssdc_number | as_crispy_field}}
+          </div>
+          <div class="col-md-4">
+            {{filtered_agents.form.project | as_crispy_field}}
+          </div>
+          <div class="col-md-4">
+            <label></label><br>
+            <input type="submit" value="Filter" class="btn btn-info mt-5">
+          </div>
+        </div>
+      </form>
     </div>
 
     <div class="row">
@@ -27,16 +44,19 @@
                   <th>SSDC Number</th>
                   <th>Project</th>
                   <th>Email</th>
-                  
+                  <th colspan="3">Actions</th>
                 </tr>
               </thead>
               <tbody>
-        {% for agent in agents %}
+        {% for agent in filtered_agents.qs %}
                 <tr>
                   <td>{{agent.name}}</td>
                   <td>{{agent.ssdc_number}}</td>
                   <td>{{agent.project}}</td>
                   <td>{{agent.user.email}}</td>
+                  <td>
+                    <a href="{% url 'agent-details' agent.pk %}" class="btn btn-info">Details</a>
+                  </td>
                   <td>
                     <a href="#" class="btn btn-primary">Update</a>
                   </td>
