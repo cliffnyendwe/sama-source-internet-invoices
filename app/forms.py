@@ -72,8 +72,7 @@ class AddInvoiceForm(forms.ModelForm):
             'invoice': forms.FileInput(attrs={'class': 'form-control'}),
             #'project': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'project', 'type': 'hidden'}),
             'due_date': forms.DateInput(attrs={'class': 'datepicker', 'id': 'due_date', 'type': 'date'}),   
-            'date_submitted': forms.DateInput(attrs={'class': 'datepicker', 'id': 'date_submitted', 'type': 'date'}),
-            'reason_declined': forms.Textarea(attrs={'class': 'form-control'}),      
+            'date_submitted': forms.DateInput(attrs={'class': 'datepicker', 'id': 'date_submitted', 'type': 'date'}),     
             'due_date': forms.DateInput(attrs={'class': 'form-control'}),        
             'invoice_file': forms.FileInput(attrs={'class': 'form-control'}),
         }
