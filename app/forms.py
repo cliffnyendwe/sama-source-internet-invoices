@@ -16,6 +16,8 @@ class AddAgentForm(forms.ModelForm):
             'till_or_paybill_number': forms.TextInput(attrs={'class': 'form-control'}),
             'acc_number': forms.TextInput(attrs={'class': 'form-control'}), 
             'installation': forms.NumberInput(attrs={'class': 'form-control'}),                       
+            'payment_method': forms.Select(attrs={'class': 'form-control'}), 
+            'installation': forms.NumberInput(attrs={'class': 'form-control'}), 
         }
 
 class UpdateAgentForm(forms.ModelForm):
@@ -43,7 +45,7 @@ class AddTeamLeaderForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
             'project': forms.Select(attrs={'class': 'form-control'}),
-                      
+
         }
 
 class UpdateTLForm(forms.ModelForm):
@@ -55,8 +57,7 @@ class UpdateTLForm(forms.ModelForm):
             'user': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'user', 'type': 'hidden'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ssdc_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'project': forms.Select(attrs={'class': 'form-control'}),
-                      
+            'project': forms.Select(attrs={'class': 'form-control'}),      
         }
 
 class AddInvoiceForm(forms.ModelForm):
@@ -73,5 +74,7 @@ class AddInvoiceForm(forms.ModelForm):
             'due_date': forms.DateInput(attrs={'class': 'datepicker', 'id': 'due_date', 'type': 'date'}),   
             'date_submitted': forms.DateInput(attrs={'class': 'datepicker', 'id': 'date_submitted', 'type': 'date'}),
             'reason_declined': forms.Textarea(attrs={'class': 'form-control'}),      
+            'due_date': forms.DateInput(attrs={'class': 'form-control'}),        
+            'invoice_file': forms.FileInput(attrs={'class': 'form-control'}),
         }
   

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
+    #'app',
+    'data',
     'authentication',
     'crispy_forms',
     'django_tables2',
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'Sama.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+         'NAME': str(BASE_DIR / "db.sqlite3"),
     }
 }
 

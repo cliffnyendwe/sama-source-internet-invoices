@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.conf import settings
 
+
 class Project(models.Model):
     title = models.CharField(max_length=500, unique=True)
     date_added = models.DateField(default=timezone.now)
@@ -45,7 +46,7 @@ class Agent (models.Model):
     till_or_paybill_number = models.CharField(max_length=20, default="000000000")
     acc_number = models.CharField(max_length=200, default="123456789")
     date_joined = models.DateField(default=timezone.now)
-   
+
 
     def __str__(self):
         return self.name
