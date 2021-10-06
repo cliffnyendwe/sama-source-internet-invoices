@@ -155,7 +155,7 @@ def agent_invoices(request):
 
 class ApproveInvoice(UpdateView):
 	model = Invoice
-	fields = ["approved"]
+	fields = ["approved", "reason_declined"]
 	template_name = "app/approve-invoice.html"
 	success_url = reverse_lazy("invoices")
 
