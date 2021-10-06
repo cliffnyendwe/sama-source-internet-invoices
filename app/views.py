@@ -9,7 +9,7 @@ import xlwt
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
-from .filters import ProjectsFilter
+from .filters import ProjectsFilter, AgentFilter, InvoiceFilter
 # Create your views here.
 def export_invoices_xls(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -85,9 +85,15 @@ class NewTeamLeader(CreateView):
 
 @login_required(login_url="/login/")
 def Agents(request):
-	agents = Agent.objects.all()
+	context = {}
+	filtered_agents = AgentFilter(
+		request.GET,
+		queryset=Agent.objects.all()
+	)
+	context['filtered_agents'] = filtered_agents
+
 	template_name = "app/agents.html"
-	return render(request, template_name, {"agents": agents})
+	return render(request, template_name, context=context)
 
 class NewAgent(CreateView):
 	model = Agent
@@ -95,14 +101,16 @@ class NewAgent(CreateView):
 	template_name = "app/new-agent.html"
 
 
-class ProjectsList(ListView):
-	model = Project
-	template_name = "app/projects.html"
-"""
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		context['filter'] = ProjectsFilter(self.request.GET, queryset=self.get_queryset())
-"""
+def all_projects(request):
+	context = {}
+	filtered_projects = ProjectsFilter(
+		request.GET,
+		queryset=Project.objects.all()
+	)
+	context['filtered_projects'] = filtered_projects
+	return render(request, "app/projects.html", context=context)
+
+
 class NewProject(CreateView):
 	model = Project
 	fields = "__all__"
@@ -162,14 +170,18 @@ def my_agents(request):
 	}
 	return render(request, "app/my-agents.html", context)
 
+class AgentDetails(DetailView):
+	model = Agent
+	template_name = "app/agent-details.html"
+
 def tl_invoices(request):
-	project = TeamLeader.objects.filter(project=request.user.teamleader.project)
-	tl_invoices = Invoice.objects.all()
-	context = {
-		"tl_invoices": tl_invoices,
-		"project": project
-	}
-	return render(request, "app/tl-invoices.html", context)
+	context = {}
+	filtered_invoices = InvoiceFilter(
+		request.GET,
+		queryset=Invoice.objects.all()
+	)
+	context['filtered_invoices'] = filtered_invoices
+	return render(request, "app/tl-invoices.html", context=context)
 
 class ChangeInvoiceStatus(UpdateView):
 	model = Invoice
@@ -184,11 +196,13 @@ class UpdateProject(UpdateView):
 
 
 def ApprovedInvoices(request):
-	invoices = Invoice.objects.filter(approved=True)
-	context = {
-		"invoices": invoices
-	}
-	return render(request, "app/admin-invoices.html", context)
+	context = {}
+	filtered_invoices = InvoiceFilter(
+		request.GET,
+		queryset=Invoice.objects.filter(approved=True)
+	)
+	context['filtered_invoices'] = filtered_invoices
+	return render(request, "app/admin-invoices.html", context=context)
 
 
 class JobList(ListView):

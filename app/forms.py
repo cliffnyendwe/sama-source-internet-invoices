@@ -72,4 +72,4 @@ class AddInvoiceForm(forms.ModelForm):
             'due_date': forms.DateInput(attrs={'class': 'datepicker', 'id': 'due_date', 'type': 'date'}),   
             'date_submitted': forms.DateInput(attrs={'class': 'datepicker', 'id': 'date_submitted', 'type': 'date'}),     
         }
-
+  
