@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 <section id="main-content">
   <section class="wrapper">
@@ -48,7 +49,7 @@
                   <th>Payment Method</th>
                   <th>Due Date</th>
                   <th>Approved</th>
-                  
+                  <th>Invoice File</th>
                   <th>Invoice PDF</th>
                   <th colspan="3">Actions</th>                      
                 </tr>
@@ -62,6 +63,9 @@
                   <td>{{invoice.approved}}</td>
                   <td>
                     <a href="{{ invoice.invoice_file.url }}" download>Download File</a>
+                  </td>
+                   <td>
+                    <a href="{% url "invoice.invoice_file.url" %}">View File</a>
                   </td>
                 <td>
                     <a href="{% url 'invoice-payment-status' invoice.pk %}" class="btn btn-primary">Update Payment</a>
