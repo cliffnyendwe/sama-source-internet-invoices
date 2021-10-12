@@ -65,7 +65,7 @@
                     <a href="{{ invoice.invoice_file.url }}" download>Download File</a>
                   </td>
                    <td>
-                    <a href="{% url "invoice.invoice_file.url" %}">View File</a>
+                    <a href="{% url "invoice.invoice_file" %}">View File</a>
                   </td>
                 <td>
                     <a href="{% url 'invoice-payment-status' invoice.pk %}" class="btn btn-primary">Update Payment</a>
