@@ -1,3 +1,8 @@
+# -*- encoding: utf-8 -*-
+"""
+Copyright (c) 2019 - present AppSeed.us
+"""
+
 from django.shortcuts import render
 
 # Create your views here.
@@ -45,7 +50,7 @@ def register_user(request):
             msg     = 'User created - please <a href="/login">login</a>.'
             success = True
             
-            return redirect("/login/")
+            #return redirect("/login/")
 
         else:
             msg = 'Form is not valid'    

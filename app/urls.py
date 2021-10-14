@@ -1,8 +1,8 @@
-from django.urls import path
-from . import views
-from . views import *
+from django.urls import path, re_path
+from app import views
 
 urlpatterns = [
+<<<<<<< HEAD
 	path('', views.home, name='home'),
 	path("agents/", Agents, name="agents"),
 	path("new-agent/", NewAgent.as_view(), name="new-agent"),
@@ -29,3 +29,14 @@ urlpatterns = [
 	path("update-agent/<int:pk>/", UpdateAgent.as_view(), name="update-agent"),
 	path("update-project/<int:pk>/", UpdateProject.as_view(), name="update-project"),
 ]
+=======
+
+    # The home page
+    path('', views.index,name='index'),
+    path('', views.index, name='home'),
+
+    # Matches any html file
+    re_path(r'^.*\.*', views.pages, name='pages'),
+
+]
+>>>>>>> parent of 0a4844d (files with new templates)

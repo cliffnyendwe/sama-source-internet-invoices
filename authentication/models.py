@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 from __future__ import unicode_literals
+=======
+# -*- encoding: utf-8 -*-
+"""
+Copyright (c) 2019 - present AppSeed.us
+"""
+>>>>>>> parent of 0a4844d (files with new templates)
 
 from django.db import models
 from django.core.mail import send_mail

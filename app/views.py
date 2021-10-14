@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from . models import *
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from . forms import *
@@ -180,10 +180,33 @@ class ApproveInvoice(UpdateView):
 	fields = ["approved", "reason_declined"]
 	template_name = "app/approve-invoice.html"
 	success_url = reverse_lazy("tl-invoices")
+=======
+from django.shortcuts import render, get_object_or_404, redirect
+from django.template import loader
+from django.http import HttpResponse
+from django import template
+from .models import Agent
 
-def team_leader_profile(request):
-	return render(request, "team-leader-profile.html")
+@login_required(login_url="/login/")
+def index(request):
+    agents = Agent.objects.all()
+    return render(request, 'index.html', {'agents':agents})
 
+@login_required(login_url="/login/")
+def pages(request):
+    context = {}
+    # All resource paths end in .html.
+    # Pick out the html file name from the url. And load that template.
+    try:
+
+        load_template      = request.path.split('/')[-1]
+        context['segment'] = load_template
+>>>>>>> parent of 0a4844d (files with new templates)
+
+        html_template = loader.get_template( load_template )
+        return HttpResponse(html_template.render(context, request))
+
+<<<<<<< HEAD
 def my_agents(request):
 	context = {}
 	filtered_agents = AgentFilter(
@@ -251,3 +274,14 @@ class UpdateAgent(UpdateView):
 	form_class = UpdateAgentForm
 	template_name = "app/update-agent-profile.html"
 
+=======
+    except template.TemplateDoesNotExist:
+
+        html_template = loader.get_template( 'page-404.html' )
+        return HttpResponse(html_template.render(context, request))
+
+    except:
+
+        html_template = loader.get_template( 'page-500.html' )
+        return HttpResponse(html_template.render(context, request))
+>>>>>>> parent of 0a4844d (files with new templates)
