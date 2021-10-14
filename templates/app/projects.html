@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
+{% block search %}
+      <div class="nav search-row" id="top_menu">
+        <!--  search form start -->
+        <ul class="nav top-menu">
+          <li>
+            <form class="navbar-form" method="GET" action="{% url 'projects' %}">
+              <input class="form-control" name="q" placeholder="Search Project" type="text">
+            </form>
+          </li>
+        </ul>
+        <!--  search form end -->
+      </div>
+{% endblock search %}
+
 {% block content %}
 <section id="main-content">
   <section class="wrapper">
@@ -28,17 +42,13 @@
                 </tr>
               </thead>
               <tbody>
-        {% for project in projects %}
+        {% for project in filtered_projects %}
                 <tr>
                   <td>{{project.title}}</td>
                   <td>{{project.date_added}}</td>
                   <td>
-                    <a href="#" class="btn btn-primary">Update</a>
-                  </td>
-                  <td>
-                    <a href="#" class="btn btn-danger">Delete</a>
-                  </td>
-               
+                    <a href="{% url 'update-project' project.pk %}" class="btn btn-primary">Update</a>
+                  </td>               
                 </tr>
       {% endfor %}
               </tbody>

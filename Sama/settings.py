@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'authentication.User'
 
 # Application definition
 
@@ -38,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    #'data',
     'authentication',
     'crispy_forms',
+    'django_tables2',
+    'django_filters',
+    'bootstrapform',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -81,7 +86,7 @@ WSGI_APPLICATION = 'Sama.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+         'NAME': str(BASE_DIR / "db.sqlite3"),
     }
 }
 
@@ -121,14 +126,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-
 STATIC_URL = '/static/'
-
+MEDIA_URL='/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 LOGOUT_REDIRECT_URL = "login"

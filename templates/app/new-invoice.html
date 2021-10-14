@@ -56,6 +56,16 @@ if (name) {
     console.log("No Agent Obtained")
 }
 document.getElementById("agent").value = name;
+
+var project = "{{ user.agent.project }}";
+if (name) {
+    console.log("Project is: ", project);
+} else {
+    console.log("No Project Obtained")
+}
+document.getElementById("project").value = project;
+
+
 </script>
 
   </section>

@@ -25,7 +25,7 @@
                   <th>ISP Name</th>
                   <th>Subscription</th>
                   <th>Due Date</th>
-                  <th>Approved</th>  
+                  <th>Approved</th> 
                   <th>Status</th>
                                        
                 </tr>
@@ -50,5 +50,8 @@
 
   </section>
 </section>
-
+<script type="text/javascript">
+  var project = "{{ request.user.agent.project}}";
+  console.log(project)
+</script>
 {% endblock content %}

@@ -1,6 +1,28 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block search %}
+      <div class="nav search-row" id="top_menu">
+        <!--  search form start -->
+        <ul class="nav top-menu">
+          <li>
+            <form class="navbar-form">
+              <input class="form-control" name="q" placeholder="Search Invoices" type="text">
+            </form>
+          </li>
+        </ul> 
+        <!--  search form end -->
+      </div>
+{% endblock search %}
 
 {% block content %}
+<style>
+  .btn {
+    background-color:  yellow!important;
+  }
+</style>
+
+
 <section id="main-content">
   <section class="wrapper">
     <div class="row">
@@ -8,7 +30,10 @@
         <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="/">Home</a></li>
+          
+          <li><i class="fa fa-pencil"></i><a href="{% url 'export-payments-due-csv' %}">Payments Due CSV</a></li>
           <li><i class="fa fa-laptop"></i>All Approved Invoices</li>
+          <li><i class="fa fa-plus"></i><a href="{% url 'export-filtered-invoices' %}">Export Filtered Invoices</a></li>
         </ol>
       </div>
     </div>
@@ -17,35 +42,33 @@
       <div class="table-responsive">
           <section class="panel">
             <header class="panel-heading">
-              Approved Invoices List
+              Approved Invoices List 
             </header>
             <table class="table ml-3">
               <thead>
                 <tr>
-                  <th>Agent</th>
-                  <th>ISP Name</th>
-                  <th>Subscription</th>
+                  <th>Agent SSDC Number</th>
+                  <th>Payment Method</th>
                   <th>Due Date</th>
-                  <th>Status</th>
+                  <th>Approved</th>
+                  
+                  <th>Invoice PDF</th>
                   <th colspan="3">Actions</th>                      
                 </tr>
               </thead>
               <tbody>
-        {% for invoice in invoices %}
+        {% for invoice in filtered_invoices %}
                 <tr>
-                  <td>{{invoice.agent}}</td>
-                  <td>{{invoice.isp_name}}</td>
-                  <td>{{invoice.monthly_subscription}}</td>
-                  <td>{{invoice.due_date}}</td>
-                  <td>{{invoice.status}}</td>
-            
-                <td>
-                    <a href="{% url 'invoice-payment-status' invoice.pk %}" class="btn btn-primary">Update Payment</a>
-                  </td>
+                  <td>{{invoice.agent.ssdc_number}}</td>
+                   <td>{{invoice.agent.payment_method}}</td>
+                   <td>{{invoice.due_date}}</td>
+                  <td>{{invoice.approved}}</td>
                   <td>
-                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="{{ invoice.invoice_file.url }}" download>Download File</a>
                   </td>
-               
+                <td>
+                    <a href="{% url 'invoice-payment-status' invoice.pk %}" class="btn">Update Payment</a>
+                  </td>               
                 </tr>
       {% endfor %}
               </tbody>
